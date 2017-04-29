@@ -1,0 +1,58 @@
+<!DOCTYPE>
+<html>
+<head>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js">
+	</script>
+	<link rel="stylesheet" type="text/css" href="main.css">
+
+
+<title>Angular App</title>
+
+</head>
+
+<body>
+
+<script>
+var app = angular.module("myShoppingList", []); 
+app.controller("myCtrl", function($scope) {
+    $scope.products = ["Milk", "Bread", "Cheese"];
+    $scope.addItem = function () {
+        $scope.errortext = "";
+        if (!$scope.addMe) {return;}
+        if ($scope.products.indexOf($scope.addMe) == -1) {
+            $scope.products.push($scope.addMe);
+        } else {
+            $scope.errortext = "The item is already on your shopping list.";
+        }
+        
+    }
+    $scope.removeItem = function (x) {
+        $scope.errortext = "";
+        $scope.products.splice(x, 1);
+    } 
+});
+</script>
+
+<div class="container" ng-app="myShoppingList" ng-controller="myCtrl">
+	<h1>My Shopping List</h1>
+	<div class="main">
+    <ul class="unstyled">
+        <li ng-repeat="x in products"> 
+            <label> {{x}}<span ><button ng-click="removeItem($index)">&times;</button></span></label>
+        </li>
+    </ul>
+    <form class="form-horizontal" ng-submit="addItem()">
+    <input ng-model="addMe" placeholder="Type and hit Enter to add an item">
+</div>
+<div class="footer">
+    <p>{{errortext}}</p>
+   </div>
+
+</div>
+</body>
+
+
+
+
+
+</html>
